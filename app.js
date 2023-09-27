@@ -7,7 +7,7 @@ const gas_end_point = 'https://script.google.com/macros/s/'+gas_deployment_id+'/
 const nav_menu=[
     //Note that a menu item is added by inserting an object for that menu item. The 'label' is the text that the user sees for that menu option. The function is the javascript function invoked when selecting that option. Here we insert the "home" and "locations" menu items. Both initiate a call to the navigate function which loads the appropriate page. The navigate function is used to help ensure smooth navigation. It allows the user to use the back botton in their browser when navigating between pages on the site (without navigating out ot the site). The navigate can accept parameters that can be passed to the function called by navigate.
     {label:"Home",function:"navigate({fn:'show_home'})"},
-    {label:"Locations",function:"navigate({fn:'show_locations'})"},
+    //{label:"Locations",function:"navigate({fn:'show_locations'})"},
     
 ]
 
@@ -37,11 +37,11 @@ const authenticated_menu=[
     ]},
     //This menu item allows the user to logout
     {label:"Logout",function:"logout()", home:"Logout"},
-    //This menu item builds a sub menu that provides the user with the functionality to request time off and see their requests
-    {label:"Time Off",id:"menu1",menu:[
-        {label:"Request Time Off",function:"navigate({fn:'request_time_off'})"}, 
-        {label:"My Requests",function:"navigate({fn:'show_time_off'})"}, 
-    ]},
+    //This menu item builds a sub menu that provides the user with the functionality to check toys out
+    {label:"Check out",id:"menu1",menu:[
+        {label:"Check Toys Out",function:"navigate({fn:'check_toys_out'})"}, 
+        {label:"Toys Out",function:"navigate({fn:'show_toys_out'})"}, 
+    ]}
     //This menu item allows the user to add additional users. Note the "roles" property of the object. Only users with the role of "manager", "owner", or "administrator" will see this menu item. User roles are not heirachical. All user types you wish to see a menu item must be listed in the elements of the array.
     {label:"Add Employee",function:"navigate({fn:'create_account'})", roles:["manager","owner","administrator"]}, 
     //This menu item adds the menu item for updating an inventory count. Notice how a parameter is passed to the "ice_cream_inventory" function
@@ -98,24 +98,24 @@ async function show_locations(){
     hide_menu()
 }
 
-async function request_time_off(){
-    //This is an example of embedding a data form that is created in Airtable. This form allows a user to make a "time off" request. This form is not secure. Anyone with the link or the id for the form can use it to enter data into Airtable. However, it is easy to build and share an Airtable form. 
+async function check_toys_out(){
+    //This is an example of embedding a data form that is created in Airtable. This form allows a user to make a "check out" request. This form is not secure. Anyone with the link or the id for the form can use it to enter data into Airtable. However, it is easy to build and share an Airtable form. 
     if(!logged_in()){show_home();return}
     const width = 300
-    //This form is configured to accept a parameter of the user that is requesting time off. All this means is that the Airtable form, when rendered, will populate with the appropriate user. The user can still change that information and request time off for any user stored in Airtable.
-    const url=`https://airtable.com/embed/${request_time_off_share}?prefill_employee=${get_user_data().id}`
+    //This form is configured to accept a parameter of the user that is checking toys out. All this means is that the Airtable form, when rendered, will populate with the appropriate user. The user can still change that information and check toys out for any user stored in Airtable.
+    const url=`https://airtable.com/embed/${check_toys_out_share}?prefill_employee=${get_user_data().id}`
     console.log("url",url, get_user_data())
     tag("canvas").innerHTML=`<div class="center-screen"><iframe class="airtable-embed" src="${url}" frameborder="0" onmousewheel="" width="${width}" height="500" style="background-color: white; border: 1px solid #ccc;"></iframe></div>`
     hide_menu()
 }
 
-async function show_time_off(){
-    //Another example of rendering data directly from Airtable. This function will display the time off requests for a particular employee
+async function show_toys_out(){
+    //Another example of rendering data directly from Airtable. This function will display the toys out for a particular bin
     if(!logged_in()){show_home();return}
     const width = 300
     const user_data = get_user_data()
     //notice the filter added to this URL. This filter will be applied to the table in Airtable and will only display the items defined by the filter.
-    const url=`https://airtable.com/embed/${show_time_off_share}?filter_employee=${user_data.first_name}+${user_data.last_name}`
+    const url=`https://airtable.com/embed/${show_toys_out_share}?filter_employee=${user_data.first_name}+${user_data.last_name}`
     console.log("url",url, get_user_data())
     tag("canvas").innerHTML=`<div class="center-screen"><iframe class="airtable-embed" src="${url}" frameborder="0" onmousewheel="" width="${width}" height="500" style="background-color: white; border: 1px solid #ccc;"></iframe></div>`
     hide_menu()
