@@ -139,7 +139,18 @@ async function show_toys_out(){
     tag("canvas").innerHTML=`<div class="center-screen"><iframe class="airtable-embed" src="${url}" frameborder="0" onmousewheel="" width="${width}" height="500" style="background-color: white; border: 1px solid #ccc;"></iframe></div>`
     hide_menu()
 }
-
+async function show_toys_in(){
+    //Another example of rendering data directly from Airtable. This function will display the toys out for a particular bin
+    //if(!logged_in())
+    {show_home();return}
+    const width = 300
+    const user_data = get_user_data()
+    //notice the filter added to this URL. This filter will be applied to the table in Airtable and will only display the items defined by the filter.
+    const url=`https://airtable.com/embed/${show_toys_out_share}?filter_employee=${user_data.first_name}+${user_data.last_name}`
+    console.log("url",url, get_user_data())
+    tag("canvas").innerHTML=`<div class="center-screen"><iframe class="airtable-embed" src="${url}" frameborder="0" onmousewheel="" width="${width}" height="500" style="background-color: white; border: 1px solid #ccc;"></iframe></div>`
+    hide_menu()
+}
 async function record_inventory(params){
     console.log('in record_inventory')
 
