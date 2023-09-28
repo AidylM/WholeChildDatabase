@@ -12,18 +12,18 @@ const nav_menu=[
 ]
 
 //This global variable sets the menu items for an unautheticated user.  
-const unauthenticated_menu=[
+//const authenticated_menu=[
     //The unautheticated user is presented with the "Home" and "Locations" (defined in the nav_menu global variable).
-    {menu:nav_menu},
+    //{menu:nav_menu},
     //this empty object inserts a horizontal line in the navigation menu panel
-    {},
+    //{},
     //The unauthenticated user is also presented with the "Login" and "Recover password" menu options.
     //{label:"Login",function:"login()",home:"Login",panel:"login_panel"},
     //{label:"Recover Password",function:"recover_password()",panel:"recover"}, 
-]
+//]
 
 //This global variable sets the menu items for an autheticated user.  
-const authenticated_menu=[
+const unauthenticated_menu=[
     //The autheticated user is presented with the "Home" and "Locations" (defined in the nav_menu global variable).
     {menu:nav_menu},
     //this empty object inserts a horizontal line in the navigation menu panel
