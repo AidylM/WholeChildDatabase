@@ -110,6 +110,18 @@ async function check_toys_out(){
     hide_menu()
 }
 
+async function check_toys_in(){
+    //This is an example of embedding a data form that is created in Airtable. This form allows a user to make a "check in" request. This form is not secure. Anyone with the link or the id for the form can use it to enter data into Airtable. However, it is easy to build and share an Airtable form. 
+    //if(!logged_in())
+    {show_home();return}
+    const width = 300
+    //This form is configured to accept a parameter of the user that is checking toys out. All this means is that the Airtable form, when rendered, will populate with the appropriate user. The user can still change that information and check toys out for any user stored in Airtable.
+    const url=`https://airtable.com/embed/${check_toys_in_share}?prefill_employee=${get_user_data().id}`
+    console.log("url",url, get_user_data())
+    tag("canvas").innerHTML=`<div class="center-screen"><iframe class="airtable-embed" src="${url}" frameborder="0" onmousewheel="" width="${width}" height="500" style="background-color: white; border: 1px solid #ccc;"></iframe></div>`
+    hide_menu()
+}
+
 async function show_toys_out(){
     //Another example of rendering data directly from Airtable. This function will display the toys out for a particular bin
     //if(!logged_in())
@@ -136,7 +148,7 @@ async function record_inventory(params){
         //building the HTML shell
         tag("canvas").innerHTML=` 
             <div class="page">
-                <div id="inventory-title" style="text-align:center"><h2>Ice Cream Inventory</h2></div>
+                <div id="inventory-title" style="text-align:center"><h2>Toy Inventory</h2></div>
                 <div id="inventory-message" style="width:100%"></div>
                 <div id="inventory_panel"  style="width:100%">
                 </div>
@@ -333,7 +345,7 @@ async function show_inventory_summary(params){
 
         console.log("response", response)
         //build the HMTL heading for the report
-        tag("inventory-title").innerHTML=`<h2>Ice Cream Inventory Summary</h2>`
+        tag("inventory-title").innerHTML=`<h2>Toy Inventory Summary</h2>`
 
 
         //Build the table to display the report. The columns of the table are: Flavor, the stores available to the user, and the total inventory. Since only the owner is given the option to view inventory counts (see the autheticated_user global variable), all stores will be shown in the report.
@@ -527,7 +539,7 @@ async function update_observation(entry){
         return
     }
 
-    if(!logged_in()){show_home();return}//If the user logs out, not updates are permitted.
+    if(!logged_in()){show_home();return}//If the user logs out, no updates are permitted.
     // add data validation. If a values that is not a number has been entered, the cell is highlighted in gray and an error message is presented to the user. No update will be made.
     if(isNaN(entry.value)){
         entry.parentElement.style.backgroundColor="lightGray"
