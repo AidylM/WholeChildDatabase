@@ -18,8 +18,8 @@ const unauthenticated_menu=[
     //this empty object inserts a horizontal line in the navigation menu panel
     {},
     //The unauthenticated user is also presented with the "Login" and "Recover password" menu options.
-    {label:"Login",function:"login()",home:"Login",panel:"login_panel"},
-    {label:"Recover Password",function:"recover_password()",panel:"recover"}, 
+    //{label:"Login",function:"login()",home:"Login",panel:"login_panel"},
+    //{label:"Recover Password",function:"recover_password()",panel:"recover"}, 
 ]
 
 //This global variable sets the menu items for an autheticated user.  
@@ -68,7 +68,7 @@ function show_home(){
         }
     }
 
-    //the main page is rendered with the Brooker's Ice cream logo. 
+    //the main page is rendered with the Whole Child Therapy logo. 
 
     tag("canvas").innerHTML=` 
     <div class="center-screen">
@@ -90,17 +90,18 @@ function get_user_name(){
     return data.first_name + " " + data.last_name
 }
 
-async function show_locations(){
+//async function show_locations(){
     //This function demonstrates how to render a view that is created in Airtable. The list of locations is a view of the Store table in airtable. It is shared in Airtable. The ID of the share is all that is needed to display the share embedded in this webpage. Generally Airtable shared items are visible by anyone with the link or id, so any data that must be secured should not be rendered using this method. However, it is a quick and easy way to display data stored in airtable.
     const width = 400
     //here the HTML of the page is configured to display the shared view in airtable.
-    tag("canvas").innerHTML=`<div class="center-screen"><iframe class="airtable-embed" src="https://airtable.com/embed/${show_locations_share}?backgroundColor=cyan" frameborder="0" onmousewheel="" width="${width}" height="500" style="background-color: white; border: 1px solid #ccc;"></iframe></div>`
-    hide_menu()
-}
+    //tag("canvas").innerHTML=`<div class="center-screen"><iframe class="airtable-embed" src="https://airtable.com/embed/${show_locations_share}?backgroundColor=cyan" frameborder="0" onmousewheel="" width="${width}" height="500" style="background-color: white; border: 1px solid #ccc;"></iframe></div>`
+    //hide_menu()
+//}
 
 async function check_toys_out(){
     //This is an example of embedding a data form that is created in Airtable. This form allows a user to make a "check out" request. This form is not secure. Anyone with the link or the id for the form can use it to enter data into Airtable. However, it is easy to build and share an Airtable form. 
-    if(!logged_in()){show_home();return}
+    //if(!logged_in())
+    {show_home();return}
     const width = 300
     //This form is configured to accept a parameter of the user that is checking toys out. All this means is that the Airtable form, when rendered, will populate with the appropriate user. The user can still change that information and check toys out for any user stored in Airtable.
     const url=`https://airtable.com/embed/${check_toys_out_share}?prefill_employee=${get_user_data().id}`
@@ -111,7 +112,8 @@ async function check_toys_out(){
 
 async function show_toys_out(){
     //Another example of rendering data directly from Airtable. This function will display the toys out for a particular bin
-    if(!logged_in()){show_home();return}
+    //if(!logged_in())
+    {show_home();return}
     const width = 300
     const user_data = get_user_data()
     //notice the filter added to this URL. This filter will be applied to the table in Airtable and will only display the items defined by the filter.
