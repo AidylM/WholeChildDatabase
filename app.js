@@ -178,9 +178,10 @@ async function record_inventory(params){
             //If the user is associated with exactly 1 store, we call the get_inventory_list function again to populate the rest of the page with the data for that store. 
             tag("inventory-message").innerHTML='<i class="fas fa-spinner fa-pulse"></i>'//this element is used to add a visual element (spinning wheel) to signify that the site is processing.
             //we call the get_inventory_list function (mode) filtered to show only "Ice Cream" (filter) - note that there are other inventory items - in the store associated with this user (store).
+            //DA changed filer list to toys from icecream
             record_inventory({
                 mode:"get_inventory_data",
-                filter:"list='Ice Cream'",
+                filter:"list='Toys'",
                 store:user_data.store[0]
             })
         }else{
@@ -190,10 +191,11 @@ async function record_inventory(params){
                 html.push(`<option value="${store}">${store_list()[store]}</option>`)
             }
             //When the user selects the store using the form, the "get_inventory_list" function is invoked on the submission of the form to populate the rest of this page with the data for that store
+            //DA changed value list to Toys frome icecream
             html.push(`</select>
                         <button type="button" id="choose_store_button" onclick="record_inventory(form_data(this,true))">Submit</button>
                         <input type="hidden" name="mode" value="get_inventory_data">
-                        <input type="hidden" name="filter" value="list='Ice Cream'">
+                        <input type="hidden" name="filter" value="list='Toys'">
                         </form>`)
             tag("inventory_panel").innerHTML=html.join("")
         }
@@ -217,7 +219,8 @@ async function record_inventory(params){
             window.cols={}
             console.log("response", response)
             // build the HTML header for the page identifying the store for which the counts will be recorded
-            tag("inventory-title").innerHTML=`<h2>${store_list()[params.store]} Ice Cream Inventory</h2>`
+            // DA changed icecream inventory to toy inventory
+            tag("inventory-title").innerHTML=`<h2>${store_list()[params.store]} Toy Inventory</h2>`
             const html=["Fill in every row in this section."]
             //build the table for the form used to record the counts.
             const header=[`
@@ -333,9 +336,10 @@ async function show_inventory_summary(params){
     hide_menu()
     //This function is set up recursively to build the page for working with inventory. The first time the function is called, the HTML shell is created for displaying either the inventory form for recording the count or the inventory report. Note that this will only be built if there is a "style" property set when the function is called. Once the shell is created, the function is called again to either built the form for recording an inventory count or create the summary report.
     //building the HTML shell
+    //Changed Ice cream inventory to toy inventory
     tag("canvas").innerHTML=` 
         <div class="page">
-            <div id="inventory-title" style="text-align:center"><h2>Ice Cream Inventory</h2></div>
+            <div id="inventory-title" style="text-align:center"><h2>Toy Inventory</h2></div>
             <div id="inventory-message" style="width:100%"></div>
             <div id="inventory_panel"  style="width:100%">
             </div>
@@ -347,10 +351,10 @@ async function show_inventory_summary(params){
     console.log ("user_data",user_data)
     //If the user wants to see a summary of the most recent count, we call the "get_inventory_summary" function to populate the page with data from all of the stores that are associated with that user.
     tag("inventory-message").innerHTML='<i class="fas fa-spinner fa-pulse"></i>'
-    
+    //changed filter list to Toys from icecream
     const response=await server_request({
         mode:"get_inventory_summary",
-        filter:"list='Ice Cream'",
+        filter:"list='Toys'",
         store:user_data.store,
     })
     tag("inventory-message").innerHTML=''
