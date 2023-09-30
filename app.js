@@ -42,7 +42,7 @@ const unauthenticated_menu=[
         {label:"Check Toys Out",function:"navigate({fn:'check_toys_out'})"}, 
         {label:"Toys Out",function:"navigate({fn:'show_toys_out'})"}, 
     ]}
-    //This menu item builds a sub menu that provides the user with the functionality to check toys out
+    //This menu item builds a sub menu that provides the user with the functionality to check toys in
     ,{label:"Check In",id:"menu2",menu:[
         {label:"Check Toys In",function:"navigate({fn:'check_toys_in'})"}, 
         {label:"Toys In",function:"navigate({fn:'show_toys_In'})"}, 
