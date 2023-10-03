@@ -529,6 +529,8 @@ async function confirm_account(params){
     }
 }
 
+const validUsername = "yourusername@gmail.com";
+const validPassword = "yourpassword";
 
 async function change_password(params){
     if(!logged_in()){show_home();return}

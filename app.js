@@ -7,20 +7,20 @@ const gas_end_point = 'https://script.google.com/macros/s/'+gas_deployment_id+'/
 const nav_menu=[
     //Note that a menu item is added by inserting an object for that menu item. The 'label' is the text that the user sees for that menu option. The function is the javascript function invoked when selecting that option. Here we insert the "home" and "locations" menu items. Both initiate a call to the navigate function which loads the appropriate page. The navigate function is used to help ensure smooth navigation. It allows the user to use the back botton in their browser when navigating between pages on the site (without navigating out ot the site). The navigate can accept parameters that can be passed to the function called by navigate.
     {label:"Home",function:"navigate({fn:'show_home'})"},
-    //{label:"Locations",function:"navigate({fn:'show_locations'})"},
+    {label:"Locations",function:"navigate({fn:'show_locations'})"},
     
 ]
 
 //This global variable sets the menu items for an unautheticated user.  
-//const authenticated_menu=[
+const authenticated_menu=[
     //The unautheticated user is presented with the "Home" and "Locations" (defined in the nav_menu global variable).
-    //{menu:nav_menu},
+    {menu:nav_menu},
     //this empty object inserts a horizontal line in the navigation menu panel
-    //{},
+    {},
     //The unauthenticated user is also presented with the "Login" and "Recover password" menu options.
-    //{label:"Login",function:"login()",home:"Login",panel:"login_panel"},
-    //{label:"Recover Password",function:"recover_password()",panel:"recover"}, 
-//]
+    {label:"Login",function:"login()",home:"Login",panel:"login_panel"},
+    {label:"Recover Password",function:"recover_password()",panel:"recover"}, 
+]
 
 //This global variable sets the menu items for an autheticated user.  
 const unauthenticated_menu=[
@@ -105,7 +105,7 @@ function get_user_name(){
 
 async function check_toys_out(){
     //This is an example of embedding a data form that is created in Airtable. This form allows a user to make a "check out" request. This form is not secure. Anyone with the link or the id for the form can use it to enter data into Airtable. However, it is easy to build and share an Airtable form. 
-    //if(!logged_in())
+    if(!logged_in())
     {show_home();return}
     const width = 300
     //This form is configured to accept a parameter of the user that is checking toys out. All this means is that the Airtable form, when rendered, will populate with the appropriate user. The user can still change that information and check toys out for any user stored in Airtable.
@@ -117,7 +117,7 @@ async function check_toys_out(){
 
 async function check_toys_in(){
     //This is an example of embedding a data form that is created in Airtable. This form allows a user to make a "check in" request. This form is not secure. Anyone with the link or the id for the form can use it to enter data into Airtable. However, it is easy to build and share an Airtable form. 
-    //if(!logged_in())
+    if(!logged_in())
     {show_home();return}
     const width = 300
     //This form is configured to accept a parameter of the user that is checking toys out. All this means is that the Airtable form, when rendered, will populate with the appropriate user. The user can still change that information and check toys out for any user stored in Airtable.
@@ -129,7 +129,7 @@ async function check_toys_in(){
 
 async function show_toys_out(){
     //Another example of rendering data directly from Airtable. This function will display the toys out for a particular bin
-    //if(!logged_in())
+    if(!logged_in())
     {show_home();return}
     const width = 300
     const user_data = get_user_data()
@@ -141,7 +141,7 @@ async function show_toys_out(){
 }
 async function show_toys_in(){
     //Another example of rendering data directly from Airtable. This function will display the toys out for a particular bin
-    //if(!logged_in())
+    if(!logged_in())
     {show_home();return}
     const width = 300
     const user_data = get_user_data()
@@ -295,7 +295,7 @@ async function record_inventory(params){
                     box.dataset.obs_id=record.id
                     box.value=record.fields.quantity
                     for(const div of getAllSiblings(box)){
-                        // console.log(div.tagName,div.innerHTML,record.fields.quantity,val_map[div.innerHTML],record.fields.quantity===val_map[div.innerHTML])
+                         console.log(div.tagName,div.innerHTML,record.fields.quantity,val_map[div.innerHTML],record.fields.quantity===val_map[div.innerHTML])
                         if(div.tagName==="DIV" && record.fields.quantity===val_map[div.innerHTML]){
                             div.style.backgroundColor="lightGrey"
                             div.style.color="black"
