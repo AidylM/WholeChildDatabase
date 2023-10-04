@@ -4,6 +4,7 @@
 const gas_end_point = 'https://script.google.com/macros/s/'+gas_deployment_id+'/exec'
 
 //This global variable defines the first two navigation items in the menu. In this app there are only two main navigation items "Home" and "Locations". These two menu items are visible regardless of login status.  
+//This global variable defines the first two navigation items in the menu. In this app there are only two main navigation items "Home" and "Locations". These two menu items are visible regardless of login status.  
 const nav_menu=[
     //Note that a menu item is added by inserting an object for that menu item. The 'label' is the text that the user sees for that menu option. The function is the javascript function invoked when selecting that option. Here we insert the "home" and "locations" menu items. Both initiate a call to the navigate function which loads the appropriate page. The navigate function is used to help ensure smooth navigation. It allows the user to use the back botton in their browser when navigating between pages on the site (without navigating out ot the site). The navigate can accept parameters that can be passed to the function called by navigate.
     {label:"Home",function:"navigate({fn:'show_home'})"},
@@ -12,7 +13,7 @@ const nav_menu=[
 ]
 
 //This global variable sets the menu items for an unautheticated user.  
-const authenticated_menu=[
+const unauthenticated_menu=[
     //The unautheticated user is presented with the "Home" and "Locations" (defined in the nav_menu global variable).
     {menu:nav_menu},
     //this empty object inserts a horizontal line in the navigation menu panel
@@ -23,7 +24,7 @@ const authenticated_menu=[
 ]
 
 //This global variable sets the menu items for an autheticated user.  
-const unauthenticated_menu=[
+const authenticated_menu=[
     //The autheticated user is presented with the "Home" and "Locations" (defined in the nav_menu global variable).
     {menu:nav_menu},
     //this empty object inserts a horizontal line in the navigation menu panel
